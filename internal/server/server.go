@@ -1,9 +1,10 @@
 package server
 
 import (
+	"github.com/byt3-m3/go-zipper/internal/models"
+	"github.com/byt3-m3/go-zipper/internal/vars"
 	"github.com/gorilla/mux"
-	"go-zip/internal/models"
-	"go-zip/internal/vars"
+
 	"log"
 	"net/http"
 )

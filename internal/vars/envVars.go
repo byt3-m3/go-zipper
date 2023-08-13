@@ -1,7 +1,7 @@
 package vars
 
 import (
-	"go-zip/internal/utils/common"
+	"github.com/byt3-m3/go-zipper/internal/utils/common"
 )
 
 var (

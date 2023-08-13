@@ -3,7 +3,8 @@ package client
 import (
 	"encoding/json"
 	"fmt"
-	"go-zip/internal/models"
+	"github.com/byt3-m3/go-zipper/internal/models"
+
 	"log"
 	"net/http"
 )

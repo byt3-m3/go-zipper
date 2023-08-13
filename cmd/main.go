@@ -1,13 +1,13 @@
 package main
 
 import (
-	server2 "go-zip/internal/server"
-	"go-zip/internal/vars"
+	"github.com/byt3-m3/go-zipper/internal/server"
+	"github.com/byt3-m3/go-zipper/internal/vars"
 	"log"
 )
 
 func main() {
-	server := server2.NewServer(server2.WithListenAddress(vars.WebserverListenAddress))
+	server := server.NewServer(server.WithListenAddress(vars.WebserverListenAddress))
 
 	if err := server.Run(); err != nil {
 		log.Fatalln(err)

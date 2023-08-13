@@ -1,4 +1,4 @@
-module zip_fetcher
+module github.com/byt3-m3/go-zipper
 
 go 1.18
 

@@ -1,4 +1,4 @@
-module go-zip
+module zip_fetcher
 
 go 1.18
 

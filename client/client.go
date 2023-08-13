@@ -50,8 +50,10 @@ func (c client) GetAddressData(zip string) models.AddressData {
 
 	}
 
+	resp, err := c.httpClient.Do(req)
+
 	var data models.AddressData
-	if err := json.NewDecoder(req.Body).Decode(&data); err != nil {
+	if err := json.NewDecoder(resp.Body).Decode(&data); err != nil {
 		log.Fatalln(err)
 	}
 

@@ -44,7 +44,9 @@ func NewClient(opts ...opt) ZipFetcherClient {
 }
 
 func (c client) GetAddressData(zip string) (models.AddressData, error) {
-	req, err := http.NewRequest("GET", fmt.Sprintf("%s%s", c.zipFetcherHost, fmt.Sprintf("/api/v1/zip?=%s", zip)), nil)
+	url := fmt.Sprintf("%s%s", c.zipFetcherHost, fmt.Sprintf("/api/v1/zip?=%s", zip))
+
+	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return models.AddressData{}, err
 

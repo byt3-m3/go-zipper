@@ -1,2 +1,2 @@
-GET http://localhost:8080/api/v1/zip?zip=32808
+GET {{host}}/api/v1/zip?zip=32808
 Accept: application/json

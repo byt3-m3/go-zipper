@@ -39,14 +39,36 @@ metadata:
 apiVersion: v1
 kind: Service
 metadata:
-  name: vehicle-scrapper-webserver-svc
+  name: zip-fetcher-webserver-svc
   namespace: {{.Values.namespace}}
   labels:
-    app: vehicle-scrapper-webserver-svc
+    app: zip-fetcher-webserver-svc
 spec:
   selector:
-    app: vehicle-scrapper-webserver
+    app: zip-fetcher-webserver
   ports:
   - port: 80
-    targetPort: 80
+    targetPort: 8080
   type: LoadBalancer
+
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: {{.Values.namespace}}
+  name: zip-fetcher-ingress
+
+spec:
+  ingressClassName: "home-ingress-controller"
+  rules:
+    - host: "zip-api.baxterhome.net"
+      http:
+        paths:
+          - backend:
+              service:
+                name: zip-fetcher-webserver-svc
+                port:
+                  number: 8080
+            pathType: "Prefix"
+            path: "/"

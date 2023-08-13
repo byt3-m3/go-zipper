@@ -2,6 +2,7 @@ package models
 
 import (
 	"github.com/gocarina/gocsv"
+	"go-zip/internal/vars"
 	"log"
 	"os"
 )
@@ -31,7 +32,7 @@ func NewZipFetcher() ZipFetcher {
 
 func (f *zipFetcher) loadData() {
 
-	file, err := os.Open("uszips.csv")
+	file, err := os.Open(vars.ZipFileLocation)
 	if err != nil {
 		log.Fatalln(err)
 	}

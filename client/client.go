@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/byt3-m3/go-zipper/internal/models"
 
-	"log"
 	"net/http"
 )
 
@@ -24,7 +23,7 @@ var (
 )
 
 type ZipFetcherClient interface {
-	GetAddressData(zip string) models.AddressData
+	GetAddressData(zip string) (models.AddressData, error)
 }
 
 type client struct {
@@ -44,9 +43,10 @@ func NewClient(opts ...opt) ZipFetcherClient {
 	}
 }
 
-func (c client) GetAddressData(zip string) models.AddressData {
+func (c client) GetAddressData(zip string) (models.AddressData, error) {
 	req, err := http.NewRequest("GET", fmt.Sprintf("%s%s", c.zipFetcherHost, fmt.Sprintf("/api/v1/zip?=%s", zip)), nil)
 	if err != nil {
+		return models.AddressData{}, err
 
 	}
 
@@ -54,9 +54,9 @@ func (c client) GetAddressData(zip string) models.AddressData {
 
 	var data models.AddressData
 	if err := json.NewDecoder(resp.Body).Decode(&data); err != nil {
-		log.Fatalln(err)
+		return models.AddressData{}, err
 	}
 
-	return data
+	return data, nil
 
 }

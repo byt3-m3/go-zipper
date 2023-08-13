@@ -1,0 +1,14 @@
+# Default values for go_zipper.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: registry.baxterhome.net/cbaxter1988/zip-fetcher:1.0.0
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+
+namespace: zip-fetcher

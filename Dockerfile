@@ -21,6 +21,6 @@ RUN GOOS=linux GARCH=amd64 CGO_ENABLED=0 && go build -o /go/bin/zip_fetcher -ldf
 
 FROM ubuntu as build
 
-COPY uszips.csv /app/uszips.csv
+COPY uszips.csv /uszips.csv
 
 COPY --from=GOPREP /go/bin/zip_fetcher /usr/bin/zip_fetcher

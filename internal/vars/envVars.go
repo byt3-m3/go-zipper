@@ -5,6 +5,6 @@ import (
 )
 
 var (
-	ZipFileLocation        = common.GetEnv("ZIP_FILE_LOCATION", "/app/uszips.csv")
+	ZipFileLocation        = common.GetEnv("ZIP_FILE_LOCATION", "/uszips.csv")
 	WebserverListenAddress = common.GetEnv("LISTEN_ADDRESS", "0.0.0.0:8080")
 )

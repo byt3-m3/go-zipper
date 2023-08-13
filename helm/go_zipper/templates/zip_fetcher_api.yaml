@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zip-fetcher-webserver
+  namespace: {{.Values.namespace}}
+spec:
+  replicas: {{$.Values.replicaCount}}
+  selector:
+    matchLabels:
+      app: zip-fetcher-webserver
+  template:
+    metadata:
+      labels:
+        app: zip-fetcher-webserver
+    spec:
+      imagePullSecrets:
+        - name: registry-secret
+      containers:
+      - name: webserver
+        image: {{.Values.image.repository}}
+        imagePullPolicy: Always
+
+        command:
+          - ./usr/bin/zip_fetcher
+        ports:
+        - containerPort: 8080
+        env:
+          - name: ZIP_FILE_LOCATION
+            value: /uszips.csv
+
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{.Values.namespace}}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vehicle-scrapper-webserver-svc
+  namespace: {{.Values.namespace}}
+  labels:
+    app: vehicle-scrapper-webserver-svc
+spec:
+  selector:
+    app: vehicle-scrapper-webserver
+  ports:
+  - port: 80
+    targetPort: 80
+  type: LoadBalancer

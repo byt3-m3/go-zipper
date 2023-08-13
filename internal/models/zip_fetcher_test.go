@@ -1,9 +1,12 @@
 package models
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestZipFetcher(t *testing.T) {
-	fetcher := NewZipFetcher()
+
+	fetcher := NewZipFetcher(WithZipFileLocation("uszips.csv"))
 
 	fetcher.GetAddressData("34761")
 }

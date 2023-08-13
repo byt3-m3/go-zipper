@@ -3,6 +3,7 @@ package server
 import (
 	"github.com/gorilla/mux"
 	"go-zip/internal/models"
+	"go-zip/internal/vars"
 	"log"
 	"net/http"
 )
@@ -39,7 +40,7 @@ func NewServer(opts ...Opt) WebServer {
 	s := server{
 		router:  mux.NewRouter(),
 		config:  cfg,
-		fetcher: models.NewZipFetcher(),
+		fetcher: models.NewZipFetcher(models.WithZipFileLocation(vars.ZipFileLocation)),
 	}
 
 	s.registerRoutes()

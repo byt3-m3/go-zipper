@@ -2,10 +2,24 @@ package models
 
 import (
 	"github.com/gocarina/gocsv"
-	"go-zip/internal/vars"
 	"log"
 	"os"
 )
+
+type opt func(c *Config)
+
+var (
+	WithZipFileLocation = func(location string) opt {
+
+		return func(c *Config) {
+			c.ZipFileLocation = location
+		}
+	}
+)
+
+type Config struct {
+	ZipFileLocation string
+}
 
 type AddressData struct {
 	Zip       string `csv:"zip"`
@@ -20,10 +34,16 @@ type ZipFetcher interface {
 
 type zipFetcher struct {
 	ZipRecords []AddressData
+	*Config
 }
 
-func NewZipFetcher() ZipFetcher {
-	f := &zipFetcher{}
+func NewZipFetcher(opts ...opt) ZipFetcher {
+	cfg := &Config{}
+	for _, opt := range opts {
+		opt(cfg)
+	}
+
+	f := &zipFetcher{Config: cfg}
 
 	f.loadData()
 
@@ -31,8 +51,11 @@ func NewZipFetcher() ZipFetcher {
 }
 
 func (f *zipFetcher) loadData() {
+	if f.ZipFileLocation == "" {
+		log.Fatalln("must set ZipFileLocation")
+	}
 
-	file, err := os.Open(vars.ZipFileLocation)
+	file, err := os.Open(f.ZipFileLocation)
 	if err != nil {
 		log.Fatalln(err)
 	}

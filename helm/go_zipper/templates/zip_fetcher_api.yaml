@@ -58,12 +58,21 @@ kind: Ingress
 metadata:
   namespace: {{.Values.namespace}}
   name: zip-fetcher-ingress
+  annotations:
+     "cert-manager.io/cluster-issuer": "cloudflare-issuer"
 
 spec:
   ingressClassName: "home-ingress-controller"
+  tls:
+
+    - secretName: zip-api-cert
+      hosts:
+        - "zip-api.baxterhome.net"
   rules:
     - host: "zip-api.baxterhome.net"
+
       http:
+
         paths:
           - backend:
               service:
@@ -72,3 +81,4 @@ spec:
                   number: 8080
             pathType: "Prefix"
             path: "/"
+

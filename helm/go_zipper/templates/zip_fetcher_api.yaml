@@ -59,7 +59,7 @@ metadata:
   namespace: {{.Values.namespace}}
   name: zip-fetcher-ingress
   annotations:
-     "cert-manager.io/cluster-issuer": "cloudflare-issuer"
+{{/*     "cert-manager.io/cluster-issuer": "cloudflare-issuer"*/}}
 
 spec:
   ingressClassName: "home-ingress-controller"
